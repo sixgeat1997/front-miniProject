@@ -1,6 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { allAction } from '../redux/store'
+import { bindActionCreators } from 'redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const PostFrom = () => {
+
+    const postreduc = useSelector(state => state.postreduc);
+    const form = useSelector(state => state.form);
+    const Allaction = bindActionCreators(allAction, useDispatch())
 
     const [post, setPost] = useState({
         activity: '',
@@ -11,17 +19,21 @@ const PostFrom = () => {
         people: 0
     })
 
+    const addPost = () => {
+        Allaction.addPost({ ...form, id: postreduc.lenght > 0 ? postreduc[postreduc.lenght - 1].id + 1 : 0 })
+    }
+
 
 
     return (
         <div>
-            <input type="text" onChange={(e) => setPost({ ...post, activity: e.target.vale })} /> <br />
-            <input type="text" onChange={(e) => setPost({ ...post, address: e.target.vale })} /> <br />
-            <input type="text" onChange={(e) => setPost({ ...post, date: e.target.vale })} /> <br />
-            <input type="text" onChange={(e) => setPost({ ...post, name: e.target.vale })} /> <br />
-            <input type="number" onChange={(e) => setPost({ ...post, hours: e.target.vale })} /> <br />
-            <input type="number" onChange={(e) => setPost({ ...post, people: e.target.vale })} /> <br />
-
+            <span>กิจกรรม : </span><input type="text" onChange={(e) => Allaction.change_activity(e.target.value)} /> <br />
+            <span>สถานที่ : </span><input type="text" onChange={(e) => Allaction.change_address(e.target.value)} /> <br />
+            <span>วันที่ : </span><input type="text" onChange={(e) => Allaction.change_date(e.target.value)} /> <br />
+            <span>ผู้โพส : </span><input type="text" onChange={(e) => Allaction.change_name(e.target.value)} /> <br />
+            <span>ชั่วโมง : </span><input type="number" onChange={(e) => Allaction.change_hours(e.target.value)} /> <br />
+            <span>จำนวน : </span><input type="number" onChange={(e) => Allaction.change_people(e.target.value)} /> <br />
+            <button onClick={addPost} >add</button>
         </div>
     )
 }

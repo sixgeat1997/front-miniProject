@@ -10,15 +10,15 @@ const App = () => {
 
   return (
     <div  >
-      <Switch>
-        <Router history={history}>
 
+      <Router history={history}>
+        <Switch>
           <Route exact path="/" component={PsuLogin} />
           <Route path="/main/" component={Main} />
+        </Switch>
+      </Router>
 
-        </Router>
 
-      </Switch>
     </div>
   )
 
