@@ -6,9 +6,7 @@ import logger from 'redux-logger';
 const loginForm = {
     id: '',
 }
-const localstr = {
-    localid: ""
-}
+
 
 export const allAction = {
 
@@ -17,6 +15,9 @@ export const allAction = {
         console.log(result.data.GetStudentDetailsResult.string[0]);
         dispatch({ type: 'LOGIN', id: result.data.GetStudentDetailsResult.string[0] })
         // dispatch({ type: 'LOGIN', id: login })
+    },
+    plogout: () => async (dispatch) => {
+        dispatch({ type:"LOGOUT"})
     }
 }
 
@@ -25,12 +26,13 @@ const loginReducer = (data = loginForm, action) => {
         case "LOGIN":
             return {
                 ...data,
-                id: action.id
+                id: action.id,
             }
         case "LOGOUT":
             return {
                 ...data,
-                id: ""
+                id: "",
+            
             }
     }
     return data

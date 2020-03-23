@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from "axios";
+import { history } from '../_helpers/History';
 
 
-const PsuLogin = (props) => {
-    console.log(props);
+const PsuLogin = () => {
+ 
 
     const AllAction = bindActionCreators(allAction, useDispatch())
     const psuPass = useSelector(state => state.psuPass)
@@ -20,13 +20,14 @@ const PsuLogin = (props) => {
 
     const sentPsu = async () => {
 
-        AllAction.plogin(psu,)
+        AllAction.plogin(psu)
         console.log(psuPass.id);
-        if (psuPass.id == psu.username) {
-            localStorage.setItem("data", psuPass.id)
-            props.history.push("/main")
+
+        if (psuPass.id) {
+            history.push('/main')
+            localStorage.setItem('data', psuPass.id)
         }
-        
+
 
 
 
@@ -36,12 +37,12 @@ const PsuLogin = (props) => {
 
     useEffect(() => {
         if (localStorage.getItem('data') != null) {
-            props.history.push('/main')
+            history.push('/main')
         }
-        else{
-            props.history.push('/')
+        else {
+            history.push('/')
         }
-    },[])
+    }, [])
 
     return (
         <div  >

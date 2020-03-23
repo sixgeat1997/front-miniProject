@@ -1,21 +1,17 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
+import Navbar from './Navbar'
+import Postcard from './PostCard'
+
+
+
 
 const Main = (props) => {
-
-    useEffect(()=>{
-        if(localStorage.getItem("data") == null){
-            props.history.push('/')
-        }
-    },[])
-
-    const psuLogout = () => {
-        localStorage.clear()
-    }
 
 
     return (
         <div>
-            <button onClick={psuLogout} >logout</button>
+            <Navbar />
+            <Postcard />
         </div>
     )
 }
