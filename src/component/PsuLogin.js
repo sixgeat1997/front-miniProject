@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { history } from '../_helpers/History';
 
 
-const PsuLogin = () => {
- 
+const PsuLogin = (props) => {
 
-    const AllAction = bindActionCreators(allAction, useDispatch())
+    const dispatch = useDispatch()
+
+    const AllAction = bindActionCreators(allAction, dispatch)
     const psuPass = useSelector(state => state.psuPass)
 
     const [psu, setPsu] = useState({
@@ -17,23 +18,17 @@ const PsuLogin = () => {
     })
 
 
-
-    const sentPsu = async () => {
-
+    const sentPsu = () => {
         AllAction.plogin(psu)
-        console.log(psuPass.id);
+    }
 
+
+    useEffect(() => {
         if (psuPass.id) {
             history.push('/main')
             localStorage.setItem('data', psuPass.id)
         }
-
-
-
-
-    }
-
-    console.log(psu);
+    }, [psuPass.id])
 
     useEffect(() => {
         if (localStorage.getItem('data') != null) {
@@ -44,13 +39,14 @@ const PsuLogin = () => {
         }
     }, [])
 
-    return (
+    return console.log(psuPass.id) || (
         <div  >
             <div  >
                 <h1>PSU PASSPORT</h1>
                 <input type="text" onChange={(e) => setPsu({ ...psu, username: e.target.value })} /> <br />
                 <input type="password" onChange={(e) => setPsu({ ...psu, password: e.target.value })} /><br />
-                <button onClick={sentPsu}>Click</button>
+                <button onClick={() => sentPsu()} >Click</button>
+                
             </div>
         </div>
     )
@@ -58,4 +54,6 @@ const PsuLogin = () => {
 
 }
 
-export default PsuLogin;
+const mapStateToProps = state => ({ psuPass: state.psuPass })
+
+export default connect(mapStateToProps)(PsuLogin);

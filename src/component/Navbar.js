@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,12 @@ const Navbar = () => {
     const AllAction = bindActionCreators(allAction, useDispatch())
     const psuPass = useSelector(state => state.psuPass)
 
+    const [std, setStd] = useState({
+        name: '',
+        surname: ''
+    })
+
+    
 
     const psuLogout = () => {
         AllAction.plogout()
@@ -20,9 +26,10 @@ const Navbar = () => {
     }
 
     console.log(history);
-    
 
     useEffect(() => {
+
+
         if (localStorage.getItem("data") == null) {
             history.push('/')
         }
@@ -33,6 +40,7 @@ const Navbar = () => {
 
     return (
         <div>
+            <p>{std.name} {std.surname}</p>
             <button onClick={psuLogout} >logout</button>
 
         </div>

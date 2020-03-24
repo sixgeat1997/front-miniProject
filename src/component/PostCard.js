@@ -31,6 +31,7 @@ const PostCard = () => {
             {
 
                 postreduc.reverse().map((p, index) => (
+                    // postreduc.map((p, index) => (
                     <div key={index} style={{ margin: 10 }} >
                         <Card {...p} />
                     </div>
