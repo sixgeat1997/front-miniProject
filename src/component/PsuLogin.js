@@ -26,18 +26,25 @@ const PsuLogin = (props) => {
     useEffect(() => {
         if (psuPass.id) {
             history.push('/main')
-            localStorage.setItem('data', psuPass.id)
+            let cookie = psuPass.id+"-"+psuPass.name+"-"+psuPass.surname
+            localStorage.setItem('data', cookie)
         }
-    }, [psuPass.id])
-
-    useEffect(() => {
         if (localStorage.getItem('data') != null) {
             history.push('/main')
         }
         else {
             history.push('/')
         }
-    }, [])
+    }, [psuPass.id])
+
+    // useEffect(() => {
+    //     if (localStorage.getItem('data') != null) {
+    //         history.push('/main')
+    //     }
+    //     else {
+    //         history.push('/')
+    //     }
+    // }, [])
 
     return console.log(psuPass.id) || (
         <div  >

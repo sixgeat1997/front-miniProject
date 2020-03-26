@@ -2,6 +2,8 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import axios from "axios";
 import logger from 'redux-logger';
+import { firestore } from '../index'
+
 
 const loginForm = {
     id: '',
@@ -9,20 +11,21 @@ const loginForm = {
     surname: '',
 }
 
-const postForm = [{
+const postForm = {
     activity: '',
     address: '',
     date: '',
     name: '',
     hours: 0,
     people: 0
-}]
+}
 
 
 
 export const allAction = {
 
     plogin: (login) => async (dispatch) => {
+        // const result = await axios.post(`http://localhost/`, { username: "5935512038", password: "chayanon26+" });
         const result = await axios.post(`http://localhost/`, { ...login });
         console.log(result.data.GetStudentDetailsResult);
         const [id, name, surname] = [...result.data.GetStudentDetailsResult.string]
@@ -33,16 +36,22 @@ export const allAction = {
     plogout: () => async (dispatch) => {
         dispatch({ type: "LOGOUT" })
     },
+
     getPost: () => async (dispatch) => {
         const response = await axios.get(`http://localhost/`)
         const responseBody = await response.data;
         console.log('response: ', responseBody)
         dispatch({ type: "GET_POST", posts: responseBody });
     },
-    addPost: (from) => async (dispatch) => {
-        const result = await axios.post(`http://localhost/post/`, from)
-        console.log(from);
-        dispatch({ type: "ADD_POST", post: from })
+    addPost: (form) => async (dispatch) => {
+
+        const result = await axios.post(`http://localhost/post/`, {...form,std:[]})
+        // console.log(form);
+        dispatch({ type: "ADD_POST", post: {...form,std:[]} })
+
+
+        // firestore.collection("std-loan").doc("" + form.id).set(form)
+        // console.log(psuPass);
 
     },
     deletePost: (index) => async (dispatch) => {
@@ -55,13 +64,19 @@ export const allAction = {
         dispatch({ type: 'UPDATE_POST', post: post, id: post.id })
     },
 
+    regisAtt: (user) => (dispatch) => {
+        // const form = firestore.collection("std-loan").get()
+        console.log(user.id);
+        // firestore.collection("std-loan").doc(user.id).set()
+    },
+
     change_activity: (n) => ({ type: 'CHANGE_ACTIVI', activity: n }),
     change_address: (n) => ({ type: 'CHANGE_ADDRESS', address: n }),
     change_date: (n) => ({ type: 'CHANGE_DATE', date: n }),
     change_name: (n) => ({ type: 'CHANGE_NAME', name: n }),
     change_hours: (n) => ({ type: 'CHANGE_HOURS', hours: n }),
     change_people: (n) => ({ type: 'CHANGE_PEOPLE', people: n }),
-
+    change_post: (n) => ({ type: 'CHANGE_POST', postForm: n }),
 }
 
 const loginReducer = (data = loginForm, action) => {
@@ -69,7 +84,7 @@ const loginReducer = (data = loginForm, action) => {
         case "LOGIN":
             return {
                 ...data,
-                id: "5935512038",
+                id: action.id,
                 name: action.name,
                 surname: action.surname
             }
@@ -135,6 +150,10 @@ const formReducer = (data = postForm, action) => {
             return {
                 ...data,
                 people: action.people
+            }
+        case "CHANGE_POST":
+            return {
+                data: action.postForm
             }
     }
 

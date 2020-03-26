@@ -9,14 +9,17 @@ const PostCard = () => {
 
     const postreduc = useSelector(state => state.postreduc)
     const Allaction = bindActionCreators(allAction, useDispatch())
-    console.log(postreduc);
+    console.log(postreduc.length);
 
     useEffect(() => {
         Allaction.getPost()
-    }, [])
+    },[])
 
     const post = () => {
-        if (localStorage.getItem('data') == 5935512038 + "") {
+        let cookie = localStorage.getItem('data')
+        cookie = cookie.split('-')
+
+        if ((+cookie[0] == 5935512038) || (+cookie[0] == 5935512030)) {
             return (
                 <div>
                     <PostFrom />
@@ -24,20 +27,25 @@ const PostCard = () => {
             )
         }
     }
-
+    console.log(postreduc);
+    
     return (
-        <div>
-            {post()}
-            {
+        <div  >
+            <div>
 
-                postreduc.reverse().map((p, index) => (
-                    // postreduc.map((p, index) => (
-                    <div key={index} style={{ margin: 10 }} >
-                        <Card {...p} />
-                    </div>
-                ))
-            }
+                {post()}
+                {
 
+                    postreduc.length != 0 && postreduc.map((p, index) => (
+                        // postreduc.map((p, index) => (
+                        <div key={index} style={{ margin: 10 }} >
+                            <Card {...p} />
+                           
+                        </div>
+                    ))
+                }
+
+            </div>
         </div>
     )
 

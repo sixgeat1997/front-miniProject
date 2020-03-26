@@ -2,16 +2,16 @@ import React, { useEffect } from 'react'
 import Navbar from './Navbar'
 import Postcard from './PostCard'
 
-
-
-
 const Main = (props) => {
 
-
     return (
-        <div>
+        <div >
             <Navbar />
-            <Postcard />
+      
+            <div style={{ display: "flex", justifyContent: "center" }}>
+
+                <Postcard />
+            </div>
         </div>
     )
 }
