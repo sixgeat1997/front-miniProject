@@ -17,8 +17,20 @@ const postForm = {
     date: '',
     name: '',
     hours: 0,
-    people: 0
+    people: 0,
+    std: []
 }
+const getPost = {
+    activity: '',
+    address: '',
+    date: '',
+    name: '',
+    hours: 0,
+    people: 0,
+    std: [],
+    id: 0
+}
+const loadding = false
 
 
 
@@ -45,9 +57,9 @@ export const allAction = {
     },
     addPost: (form) => async (dispatch) => {
 
-        const result = await axios.post(`http://localhost/post/`, {...form,std:[]})
+        const result = await axios.post(`http://localhost/post/`, { ...form})
         // console.log(form);
-        dispatch({ type: "ADD_POST", post: {...form,std:[]} })
+        dispatch({ type: "ADD_POST", post: { ...form } })
 
 
         // firestore.collection("std-loan").doc("" + form.id).set(form)
@@ -70,13 +82,29 @@ export const allAction = {
         // firestore.collection("std-loan").doc(user.id).set()
     },
 
+    showstd: (id) => async (dispatch) => {
+        dispatch({ type: 'CHANGE_LOADDING' })
+        axios
+            .get(`http://localhost/${id}`)
+            .then(res => {
+                dispatch({ type: 'CHANGE_POST', std: res.data })
+            })
+            .finally(() => {
+                dispatch({ type: 'CHANGE_LOADDING' })
+            })
+
+    },
+
     change_activity: (n) => ({ type: 'CHANGE_ACTIVI', activity: n }),
     change_address: (n) => ({ type: 'CHANGE_ADDRESS', address: n }),
     change_date: (n) => ({ type: 'CHANGE_DATE', date: n }),
     change_name: (n) => ({ type: 'CHANGE_NAME', name: n }),
     change_hours: (n) => ({ type: 'CHANGE_HOURS', hours: n }),
     change_people: (n) => ({ type: 'CHANGE_PEOPLE', people: n }),
-    change_post: (n) => ({ type: 'CHANGE_POST', postForm: n }),
+    change_std: (n) => ({ type: 'CHANGE_STD', std: n }),
+
+
+
 }
 
 const loginReducer = (data = loginForm, action) => {
@@ -99,6 +127,8 @@ const loginReducer = (data = loginForm, action) => {
     }
     return data
 }
+
+
 
 const postReducer = (data = [], action) => {
     switch (action.type) {
@@ -151,20 +181,39 @@ const formReducer = (data = postForm, action) => {
                 ...data,
                 people: action.people
             }
-        case "CHANGE_POST":
+        case "CHANGE_STD":
             return {
-                data: action.postForm
+                ...action.std
             }
     }
 
     return data
 }
+const getPostReducer = (data = getPost, action) => {
+    switch (action.type) {
+        case "CHANGE_POST":
+            return {
+                ...action.std
+            }
+    }
 
+    return data
+}
+const loaddingReducer = (data = loadding, action) => {
+    switch (action.type) {
+        case "CHANGE_LOADDING":
+            return !data
+        default:
+            return data
+    }
 
+}
 const rootReducer = combineReducers({
     psuPass: loginReducer,
     form: formReducer,
-    postreduc: postReducer
+    postreduc: postReducer,
+    getPost: getPostReducer,
+    loadding: loaddingReducer
 
 })
 

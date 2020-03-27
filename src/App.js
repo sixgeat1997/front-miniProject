@@ -4,13 +4,14 @@ import Main from './component/Main'
 import { Switch, Route, Link, Router } from 'react-router-dom'
 import { history } from './_helpers/History';
 import 'antd/dist/antd.css';
+import './App.css'
 
 const App = () => {
 
 
 
   return (
-    <div  >
+    <div className="app" >
 
       <Router history={history}>
         <Switch>
