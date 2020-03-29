@@ -43,11 +43,10 @@ const Navbar = () => {
         // <div>
         //     <p>{std.name} {std.surname}</p>
         //     <button onClick={psuLogout} >logout</button>
-        <div className='bearcard-actions'>
+        <div className='navbar '>
 
             <PageHeader
                 className="site-page-header"
-
                 title="Student-loan"
                 subTitle="กยศ./กรอ./ทุนการศึกษา"
                 extra={[

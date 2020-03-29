@@ -7,9 +7,9 @@ const Main = (props) => {
     return (
         <div className="">
             <Navbar />
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
                 <Postcard />
-            </div>
+            {/* </div> */}
         </div>
     )
 }

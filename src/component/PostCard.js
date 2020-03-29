@@ -4,6 +4,7 @@ import { allAction } from '../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Cards from './Cards'
+import { Divider } from 'antd'
 
 const PostCard = () => {
 
@@ -38,18 +39,21 @@ const PostCard = () => {
             <div  >
                 <div>
 
-                    {post()}
-                    {
 
-                        postreduc.length != 0 && postreduc.map((p, index) => (
+                    {post()}
+                    <Divider orientation="left">กิจกรรมทั้งหมด</Divider>
+
+                    <div className="bearcard-container">
+                        {postreduc.length != 0 && postreduc.map((p, index) => (
                             // postreduc.map((p, index) => (
-                            <div key={index} style={{ margin: 10 }} >
+                            <div key={index} style={{ margin: 20 }} >
                                 <Cards {...p} />
 
                             </div>
                         ))
-                    }
+                        }
 
+                    </div>
                 </div>
             </div>
         )

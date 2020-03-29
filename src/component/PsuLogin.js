@@ -3,10 +3,11 @@ import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { history } from '../_helpers/History';
-import { Form, Input, Button, Checkbox } from 'antd'
-
+import { Form, Input, Button, Checkbox, Alert, Modal, Card, message } from 'antd'
+import "./Card.css"
 
 const PsuLogin = (props) => {
+
 
     const dispatch = useDispatch()
 
@@ -28,6 +29,14 @@ const PsuLogin = (props) => {
         // wrapperCol: { offset: 20, span: 4 },
     };
 
+    const alerts = () => {
+        if (psuPass.id) {
+        }
+        else {
+
+        }
+    }
+
     const onFinish = values => {
         console.log('Success:', values);
     };
@@ -39,6 +48,7 @@ const PsuLogin = (props) => {
 
     const sentPsu = () => {
         AllAction.plogin(psu)
+
     }
 
 
@@ -47,13 +57,17 @@ const PsuLogin = (props) => {
             history.push('/main')
             let cookie = psuPass.id + "-" + psuPass.name + "-" + psuPass.surname
             localStorage.setItem('data', cookie)
+            message.success('This is a success message');
+
         }
         if (localStorage.getItem('data') != null) {
             history.push('/main')
         }
         else {
             history.push('/')
+            message.error('This is an error message');
         }
+
     }, [psuPass.id])
 
     // useEffect(() => {
@@ -66,49 +80,54 @@ const PsuLogin = (props) => {
     // }, [])
 
     return console.log(psuPass.id) || (
-        <div style={{ display: "flex", justifyContent: "center", textAlign: "center" }} >
-            {/* <div  >
-                <h1>PSU PASSPORT</h1>
-                <input type="text" onChange={(e) => setPsu({ ...psu, username: e.target.value })} /> <br />
-                <input type="password" onChange={(e) => setPsu({ ...psu, password: e.target.value })} /><br />
-                <button onClick={() => sentPsu()} >Click</button>
+        <div >
+            <div className="">
 
-            </div> */}
-            <div>
+            </div>
+            <div className="login ">
+                <div className="login2" >
+                    <div style={{ marginBottom: 50 }}>
+                        <h2>LOGIN</h2>
+                        <h3> PSU PASSPORT</h3>
+                    </div>
 
-                <Form
-                    {...layout}
-                    name="basic"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    <Form
+                        {...layout}
+                        name="basic"
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
 
-                >
-                    <h1>PSU PASSPORT</h1>
-                    <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
                     >
-                        <Input onChange={(e) => setPsu({ ...psu, username: e.target.value })} />
-                    </Form.Item>
+                        <Form.Item
+                            label="Username"
+                            name="username"
+                            rules={[{ required: true, message: 'Please input your username!' }]}
+                        >
+                            <Input onChange={(e) => setPsu({ ...psu, username: e.target.value })} />
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input.Password onChange={(e) => setPsu({ ...psu, password: e.target.value })} />
-                    </Form.Item>
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your password!' }]}
+                        >
+                            <Input.Password onChange={(e) => setPsu({ ...psu, password: e.target.value })} />
+                        </Form.Item>
 
 
-                    <Form.Item {...tailLayout}>
-                        <Button type="primary" htmlType="submit" onClick={() => sentPsu()} >
-                            Submit
-                    </Button>
-                    </Form.Item>
+                        <Form.Item {...tailLayout}>
+                            <Button shape="round" style={{ width: "100%", marginTop: "50px" }} onClick={() => {
+                                sentPsu()
+                                // alerts()
+                            }} >
+                                LOGIN
+                            </Button>
+                        </Form.Item>
 
-                </Form>
+                    </Form>
+                </div>
+
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { Modal, Button, Input, DatePicker, Col, Row, Form } from 'antd';
+import { Modal, Button, Input, DatePicker, Col, Row, Form, Divider } from 'antd';
 import './Card.css';
 
 
@@ -29,15 +29,22 @@ const PostFrom = () => {
     }
 
     return (
-        <div className='bearcard-container'>
+        <div className=''>
+            <Divider orientation="left">กิจกรรม</Divider>
+
             <Row>
-                <Col md={8}></Col>
-                <Col md={8}>
+                <Col className="postcard" md={12}>
+
+                    {/* <a href="https://www.freepik.com/free-photos-vectors/school">School vector created by rawpixel.com - www.freepik.com</a> */}
+                </Col>
+                {/* <Col md={16}></Col> */}
+                <Col md={9}>
 
                     <div style={{ margin: 10 }}></div>
                     <div>
 
                         <Form>
+                            
 
                             <Form.Item
                                 label="กิจกรรม"
@@ -47,7 +54,7 @@ const PostFrom = () => {
                             <Form.Item
                                 label="สถานที่"
                             >
-                                <Input size="small" type="text" onChange={(e) => Allaction.change_address(e.target.value)} />
+                                <Input size="small" type="text" onChange={(e) => Allaction.change_address(e.target.value)} placeholder="สถานที่" />
                             </Form.Item>
                             <Form.Item
                                 label="วันที่"
@@ -59,19 +66,21 @@ const PostFrom = () => {
                             <Form.Item
                                 label="ชั่วโมง"
                             >
-                                <Input size="small" type="number" onChange={(e) => Allaction.change_hours(e.target.value)} />
+                                <Input size="small" type="number" onChange={(e) => Allaction.change_hours(e.target.value)} placeholder="ชั่วโมง" />
                             </Form.Item>
                             <Form.Item
                                 label="จำนวน"
                             >
-                                <Input size="small" type="number" onChange={(e) => Allaction.change_people(e.target.value)} />
+                                <Input size="small" type="number" onChange={(e) => Allaction.change_people(e.target.value)} placeholder="จำนวน" />
                             </Form.Item>
 
                         </Form>
-                        <Button onClick={addPost} >add</Button>
+                        <Button onClick={addPost} >เพิ่มกิจกรรม</Button>
 
                     </div>
                 </Col>
+                <Col md={3}></Col>
+
             </Row>
         </div >
     )
