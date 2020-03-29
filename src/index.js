@@ -6,14 +6,6 @@ import store from './redux/store';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Route, BrowserRouter } from "react-router-dom";
-import config from './fb-config/config'
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-
-if(firebase.apps.length === 0){
-    firebase.initializeApp(config)
-}
-export const firestore = firebase.firestore()
 
 
 ReactDOM.render(
