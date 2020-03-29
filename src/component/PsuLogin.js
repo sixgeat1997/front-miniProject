@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { history } from '../_helpers/History';
 import { Form, Input, Button, Checkbox, Alert, Modal, Card, message } from 'antd'
+import { UserOutlined, KeyOutlined } from '@ant-design/icons'
 import "./Card.css"
 
 const PsuLogin = (props) => {
@@ -19,22 +20,16 @@ const PsuLogin = (props) => {
         password: ""
     })
 
-    const layout = {
-        // labelCol: { span: 19 },
-        // wrapperCol: { span: 3 },
-        // label : {span : 2}
-    };
 
-    const tailLayout = {
-        // wrapperCol: { offset: 20, span: 4 },
-    };
 
     const alerts = () => {
-        if (psuPass.id) {
-        }
-        else {
+        setTimeout(() => {
+            if (!localStorage.getItem('data')) {
+                message.error("Incorrect user ID or password")
+            }
+        }, 2000)
 
-        }
+
     }
 
     const onFinish = values => {
@@ -48,7 +43,7 @@ const PsuLogin = (props) => {
 
     const sentPsu = () => {
         AllAction.plogin(psu)
-
+        alerts()
     }
 
 
@@ -57,7 +52,7 @@ const PsuLogin = (props) => {
             history.push('/main')
             let cookie = psuPass.id + "-" + psuPass.name + "-" + psuPass.surname
             localStorage.setItem('data', cookie)
-            message.success('This is a success message');
+            message.success('This is a success login');
 
         }
         if (localStorage.getItem('data') != null) {
@@ -65,7 +60,6 @@ const PsuLogin = (props) => {
         }
         else {
             history.push('/')
-            message.error('This is an error message');
         }
 
     }, [psuPass.id])
@@ -92,7 +86,7 @@ const PsuLogin = (props) => {
                     </div>
 
                     <Form
-                        {...layout}
+
                         name="basic"
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
@@ -100,24 +94,24 @@ const PsuLogin = (props) => {
 
                     >
                         <Form.Item
-                            label="Username"
+                            // label="Username"
                             name="username"
                             rules={[{ required: true, message: 'Please input your username!' }]}
                         >
-                            <Input onChange={(e) => setPsu({ ...psu, username: e.target.value })} />
+                            <Input prefix={<UserOutlined />} placeholder="Username" onChange={(e) => setPsu({ ...psu, username: e.target.value })} />
                         </Form.Item>
 
                         <Form.Item
-                            label="Password"
+                            // label="Password"
                             name="password"
                             rules={[{ required: true, message: 'Please input your password!' }]}
                         >
-                            <Input.Password onChange={(e) => setPsu({ ...psu, password: e.target.value })} />
+                            <Input.Password prefix={<KeyOutlined />} placeholder="Password" onChange={(e) => setPsu({ ...psu, password: e.target.value })} />
                         </Form.Item>
 
 
-                        <Form.Item {...tailLayout}>
-                            <Button shape="round" style={{ width: "100%", marginTop: "50px" }} onClick={() => {
+                        <Form.Item >
+                            <Button type="dashed" shape="round" htmlType="submit" style={{ width: "100%", marginTop: "50px" }} onClick={() => {
                                 sentPsu()
                                 // alerts()
                             }} >

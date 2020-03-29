@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Card.css';
-import { Modal, Button, DatePicker, Row, Col, Card, Input, Layout } from 'antd';
+import { Modal, Button, DatePicker, Drawer, Row, Col, Card, Input, Layout, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
@@ -10,15 +10,14 @@ import Form from 'antd/lib/form/Form';
 
 
 const Cards = (props) => {
-    const form = useSelector(state => state.form)
+
     const Allaction = bindActionCreators(allAction, useDispatch())
-    const psuPass = useSelector(state => state.psuPass)
     const postre = useSelector(state => state.postreduc)
     const getPost = useSelector(state => state.getPost)
 
     const { confirm } = Modal;
-    const [modal, contextHolder] = Modal.useModal();
-
+    const [listStd, setListstd] = useState([])
+    const [list, setList] = useState(false)
     const [detail, setDetail] = useState({
         address: "",
         date: "",
@@ -30,15 +29,17 @@ const Cards = (props) => {
         std: []
     })
 
+
+
     const [state, setState] = useState(false)
 
     useEffect(() => { }, [getPost])
 
     const showDeleteConfirm = () => {
         confirm({
-            title: 'Are you sure delete this task?',
+            title: 'คุณต้องการที่จะลบกิจกรรมนี้',
             icon: <ExclamationCircleOutlined />,
-            content: 'คุณต้องการที่จะลบโพส',
+            // content: 'คุณต้องการที่จะลบโพส',
             okText: 'Yes',
             okType: 'danger',
             cancelText: 'No',
@@ -53,9 +54,9 @@ const Cards = (props) => {
     }
     const showConfirm = (cookie, tmp) => {
         confirm({
-            title: '',
+            title: 'คุณต้องการที่จะลงชื่อในกิจกรรมนี้',
             icon: <ExclamationCircleOutlined />,
-            content: 'คุณต้องการที่จะลงชื่อในกิจกรรมนี้',
+            content: 'หมายเหตุ ไม่สามารถแก้ไขได้',
             onOk() {
                 console.log('OK');
                 regisAtt(cookie, tmp)
@@ -90,12 +91,14 @@ const Cards = (props) => {
 
         if (tmpstd) {
             console.log("ลงแล้ว");
-            alert("ลงแล้ว")
+            message.info('ลงแล้ว')
+            // alert("ลงแล้ว")
 
         }
         if (tmp.people <= tmp.std.length) {
             console.log("เต็ม");
-            alert("เต็ม")
+            message.info('เต็ม')
+            // alert("เต็ม")
         }
         else if (!tmpstd && tmp.people > tmp.std.length) {
             tmp.std.push({ id: +cookie[0], name: cookie[1] + " " + cookie[2] })
@@ -177,21 +180,34 @@ const Cards = (props) => {
                                         setState(true)
                                         setDetail(tmp)
 
-                                    }}>update</Button>
+                                    }}>แก้ไขข้อมูล</Button>
 
                                     {/* show */}
                                     <Button onClick={async () => {
+                                    
+                                        // <Drawer
+                                        //     title="Basic Drawer"
+                                        //     placement="right"
+                                        //     closable={false}
+                                        //     onClose={this.onClose}
+                                        //     visible={list}
+                                        // >
+                                        //     <p>Some contents...</p>
+                                        //     <p>Some contents...</p>
+                                        //     <p>Some contents...</p>
+                                        // </Drawer>
+
                                         Allaction.showstd(id)
                                         info(getPost)
-                                    }}> Show</Button>
+                                    }}> แสดงรายชื่อ</Button>
 
                                     {/* Delete */}
-                                    <Button onClick={showDeleteConfirm} danger>Delete</Button>
+                                    <Button onClick={showDeleteConfirm} danger>ลบกิจกรรม</Button>
 
 
 
 
-                                    
+
                                     {/* <Button onClick={() => {
                                         regisAtt(cookie, tmp)
                                         // console.log(detail);
@@ -232,18 +248,18 @@ const Cards = (props) => {
                                 <p >กิจกรรม : {props.activity}</p>
                             </Row>
                             <Row>
-                                <Col md={12}>
+                                <Col md={10}>
                                     <p >วันที่ : {props.date}</p>
                                     <p >สถานที่ : {props.address}</p>
                                 </Col>
-                                <Col md={12}>
+                                <Col md={10}>
 
                                     <p >จำนวน : {props.people} คน</p>
                                     <p >ชั่วโมง : {props.hours} ชม.</p>
                                 </Col>
-                                {/* <Col md={4}>
-
-                                </Col> */}
+                                <Col md={4}>
+                                    <p ><h2 style={{ color: "red" }}>เหลือ : {props.people - props.std.length}</h2></p>
+                                </Col>
                             </Row>
                             <Row>
                                 <p >ผู้โพส : {props.name}</p>
@@ -258,7 +274,7 @@ const Cards = (props) => {
 
 
                     </Card>
-{/* 
+                    {/* 
                     <ol>{props.std.map(std => {
                         return <li>{std.id} {std.name} </li>
                     })}</ol> */}

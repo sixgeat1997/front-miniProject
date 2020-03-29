@@ -30,7 +30,7 @@ const PostFrom = () => {
 
     return (
         <div className=''>
-            <Divider orientation="left">กิจกรรม</Divider>
+            <Divider orientation="left">สร้างกิจกรรม</Divider>
 
             <Row>
                 <Col className="postcard" md={12}>
