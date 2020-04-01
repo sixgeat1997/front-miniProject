@@ -17,7 +17,7 @@ const Cards = (props) => {
 
     const { confirm } = Modal;
     const [listStd, setListstd] = useState([])
-    const [list, setList] = useState(false)
+    const [drawer, setDrawer] = useState(false)
     const [detail, setDetail] = useState({
         address: "",
         date: "",
@@ -184,22 +184,14 @@ const Cards = (props) => {
 
                                     {/* show */}
                                     <Button onClick={async () => {
-                                    
-                                        // <Drawer
-                                        //     title="Basic Drawer"
-                                        //     placement="right"
-                                        //     closable={false}
-                                        //     onClose={this.onClose}
-                                        //     visible={list}
-                                        // >
-                                        //     <p>Some contents...</p>
-                                        //     <p>Some contents...</p>
-                                        //     <p>Some contents...</p>
-                                        // </Drawer>
-
                                         Allaction.showstd(id)
-                                        info(getPost)
+                                        setDrawer(true)
+
+                                        // info(getPost)
                                     }}> แสดงรายชื่อ</Button>
+
+
+
 
                                     {/* Delete */}
                                     <Button onClick={showDeleteConfirm} danger>ลบกิจกรรม</Button>
@@ -235,6 +227,7 @@ const Cards = (props) => {
     }
 
 
+    console.log(drawer);
 
 
     return (
@@ -274,12 +267,30 @@ const Cards = (props) => {
 
 
                     </Card>
+                    <div id="myModal" className="modal">
+
+                        <div className="modal-content">
+                            <span className="close">&times;</span>
+                            <p>Some text in the Modal..</p>
+                        </div>
+
+                    </div>
                     {/* 
                     <ol>{props.std.map(std => {
                         return <li>{std.id} {std.name} </li>
                     })}</ol> */}
                 </div>
-
+                {/* <Drawer
+                    title="Basic Drawer"
+                    placement="right"
+                    closable={false}
+                    onClose={() => { setDrawer(false) }}
+                    visible={drawer}
+                >
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Drawer> */}
 
                 <div className=''>
 
