@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { history } from '../_helpers/History';
-import { Form, Input, Button, Checkbox, Alert, Modal, Card, message } from 'antd'
+// import { history } from '../_helpers/History';
+import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, KeyOutlined } from '@ant-design/icons'
 import "./Card.css"
+import { useHistory } from 'react-router-dom';
 
-const PsuLogin = (props) => {
+const PsuLogin = () => {
+    let history = useHistory()
 
 
     const dispatch = useDispatch()
@@ -27,7 +29,7 @@ const PsuLogin = (props) => {
             if (!localStorage.getItem('data')) {
                 message.error("Incorrect user ID or password")
             }
-        }, 2000)
+        }, 5000)
 
 
     }
@@ -75,10 +77,9 @@ const PsuLogin = (props) => {
 
     return console.log(psuPass.id) || (
         <div >
-            <div className="">
 
-            </div>
             <div className="login ">
+            
                 <div className="login2" >
                     <div style={{ marginBottom: 50 }}>
                         <h2>LOGIN</h2>

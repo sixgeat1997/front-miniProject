@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux'
 import { useDispatch, useSelector } from 'react-redux'
-import { Modal, Button, Input, DatePicker, Col, Row, Form, Divider } from 'antd';
+import { Button, Input, DatePicker, Col, Row, Form, Divider } from 'antd';
 import './Card.css';
 
 
 
 const PostFrom = () => {
+
+    const { TextArea } = Input
 
     const postr = useSelector(state => state.postreduc);
     const psuPass = useSelector(state => state.psuPass);
@@ -44,7 +46,7 @@ const PostFrom = () => {
                     <div>
 
                         <Form>
-                            
+
 
                             <Form.Item
                                 label="กิจกรรม"
@@ -73,6 +75,12 @@ const PostFrom = () => {
                             >
                                 <Input size="small" type="number" onChange={(e) => Allaction.change_people(e.target.value)} placeholder="จำนวน" />
                             </Form.Item>
+                            {/* <Form.Item
+                                label="คำอธิบาย"
+                            >
+                                <TextArea rows={4} onChange={(e) => Allaction.change_des(e.target.value)} />
+
+                            </Form.Item> */}
 
                         </Form>
                         <Button onClick={addPost} >เพิ่มกิจกรรม</Button>

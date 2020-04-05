@@ -18,6 +18,7 @@ const postForm = {
     name: '',
     hours: 0,
     people: 0,
+    des: '',
     std: []
 }
 const getPost = {
@@ -27,6 +28,7 @@ const getPost = {
     name: '',
     hours: 0,
     people: 0,
+    des: '',
     std: [],
     id: 0
 }
@@ -39,6 +41,7 @@ export const allAction = {
     plogin: (login) => async (dispatch) => {
         // const result = await axios.post(`http://localhost/`, { username: "5935512038", password: "chayanon26+" });
         const result = await axios.post(`https://api-stdloan.herokuapp.com/`, { ...login });
+        // const result = await axios.post(`http://localhost/`, { ...login });
         console.log(result.data.GetStudentDetailsResult);
         const [id, name, surname] = [...result.data.GetStudentDetailsResult.string]
         dispatch({ type: 'LOGIN', id: id, name: name, surname: surname })
@@ -51,6 +54,7 @@ export const allAction = {
 
     getPost: () => async (dispatch) => {
         const response = await axios.get(`https://api-stdloan.herokuapp.com/`)
+        // const response = await axios.get(`http://localhost/`)
         const responseBody = await response.data;
         console.log('response: ', responseBody)
         dispatch({ type: "GET_POST", posts: responseBody });
@@ -58,6 +62,7 @@ export const allAction = {
     addPost: (form) => async (dispatch) => {
 
         const result = await axios.post(`https://api-stdloan.herokuapp.com/post/`, { ...form})
+        // const result = await axios.post(`http://localhost/post/`, { ...form })
         // console.log(form);
         dispatch({ type: "ADD_POST", post: { ...form } })
 
@@ -68,11 +73,13 @@ export const allAction = {
     },
     deletePost: (index) => async (dispatch) => {
         const result = await axios.delete(`https://api-stdloan.herokuapp.com/delete/${index.id}`, index)
+        // const result = await axios.delete(`http://localhost/delete/${index.id}`, index)
         dispatch({ type: "DELETE_POST", id: index.id })
     },
 
     updatePost: (post) => async (dispatch) => {
         await axios.put(`https://api-stdloan.herokuapp.com/update/${post.id}`, post)
+        // await axios.put(`http://localhost/update/${post.id}`, post)
         dispatch({ type: 'UPDATE_POST', post: post, id: post.id })
     },
 
@@ -86,6 +93,7 @@ export const allAction = {
         dispatch({ type: 'CHANGE_LOADDING' })
         axios
             .get(`https://api-stdloan.herokuapp.com/${id}`)
+            // .get(`http://localhost/${id}`)
             .then(res => {
                 dispatch({ type: 'CHANGE_POST', std: res.data })
             })
@@ -102,6 +110,7 @@ export const allAction = {
     change_hours: (n) => ({ type: 'CHANGE_HOURS', hours: n }),
     change_people: (n) => ({ type: 'CHANGE_PEOPLE', people: n }),
     change_std: (n) => ({ type: 'CHANGE_STD', std: n }),
+    change_des: (n) => ({ type: 'CHANGE_DES', des: n })
 
 
 
@@ -180,6 +189,11 @@ const formReducer = (data = postForm, action) => {
             return {
                 ...data,
                 people: action.people
+            }
+        case "CHANGE_DES":
+            return {
+                ...data,
+                des: action.des
             }
         case "CHANGE_STD":
             return {

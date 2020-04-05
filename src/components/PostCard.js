@@ -41,9 +41,11 @@ const PostCard = () => {
 
 
                     {post()}
+
+                    
                     <Divider orientation="left">กิจกรรมทั้งหมด</Divider>
 
-                    <div className="bearcard-container">
+                    <div className="container">
                         {postreduc.length != 0 && postreduc.map((p, index) => (
                             // postreduc.map((p, index) => (
                             <div key={index} style={{ margin: 20 }} >

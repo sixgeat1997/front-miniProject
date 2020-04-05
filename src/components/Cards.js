@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Card.css';
-import { Modal, Button, DatePicker, Drawer, Row, Col, Card, Input, Layout, message } from 'antd';
+import { Modal, Button, Row, Col, Card,  message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
@@ -26,6 +26,7 @@ const Cards = (props) => {
         activity: "",
         people: 0,
         id: 0,
+        des: '',
         std: []
     })
 
@@ -169,6 +170,9 @@ const Cards = (props) => {
                                         }} /> <br />
                                         <span>จำนวน : </span><input type="number" value={detail.people} onChange={(e) => {
                                             setDetail({ ...detail, people: e.target.value })
+                                        }} /><br />
+                                        <span>คำอธิบาย : </span><input type="number" value={detail.des} onChange={(e) => {
+                                            setDetail({ ...detail, des: e.target.value })
                                         }} />
                                     </Form>
                                 </Modal>
@@ -221,7 +225,7 @@ const Cards = (props) => {
         else {
             return (
                 // <div></div>
-                <Button onClick={() => showConfirm(cookie, tmp)} >Regis</Button>
+                <Button onClick={() => showConfirm(cookie, tmp)} >ลงชื่อ</Button>
             )
         }
     }
@@ -233,7 +237,7 @@ const Cards = (props) => {
     return (
         <>
             <div  >
-                <div className='bearcard card' >
+                <div className=' card' >
                     <Card title={props.activity} bordered={true} >
 
                         <Col >
@@ -254,6 +258,10 @@ const Cards = (props) => {
                                     <p ><h2 style={{ color: "red" }}>เหลือ : {props.people - props.std.length}</h2></p>
                                 </Col>
                             </Row>
+                            {/* <Row>
+                                <p>คำอธิบาย : {props.des}</p>
+
+                            </Row> */}
                             <Row>
                                 <p >ผู้โพส : {props.name}</p>
                             </Row>
@@ -267,14 +275,7 @@ const Cards = (props) => {
 
 
                     </Card>
-                    <div id="myModal" className="modal">
-
-                        <div className="modal-content">
-                            <span className="close">&times;</span>
-                            <p>Some text in the Modal..</p>
-                        </div>
-
-                    </div>
+                
                     {/* 
                     <ol>{props.std.map(std => {
                         return <li>{std.id} {std.name} </li>

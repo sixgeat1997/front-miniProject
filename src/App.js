@@ -1,31 +1,20 @@
-import React, { useState } from 'react'
-import PsuLogin from './component/PsuLogin'
-import Main from './component/Main'
-import { Switch, Route, Link, Router } from 'react-router-dom'
-import { history } from './_helpers/History';
+import React from 'react';
+import './App.css';
+import { Route } from 'react-router-dom'
+import Psulogin from './components/PsuLogin'
+import Main from './components/Main'
 import 'antd/dist/antd.css';
-import './App.css'
-// import
-
-const App = () => {
 
 
+function App() {
 
   return (
-    <div className="app" >
-
-      <Router history={history}>
-        <Switch>
-          <Route exact path="/" component={PsuLogin} />
-          <Route path="/main/" component={Main} />
-        </Switch>
-      </Router>
-
+    <div className="font">
+      <Route exact={true} path={'/'} component={Psulogin} />
+      <Route exact={true} path={'/main'} component={Main} />
 
     </div>
-  )
-
-
+  );
 }
 
 export default App;

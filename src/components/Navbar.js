@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { history } from '../_helpers/History';
 import { PageHeader, Button } from 'antd';
 import './Card.css';
+import { useHistory } from 'react-router-dom';
 
 const Navbar = () => {
+
+    let history = useHistory()
 
     const AllAction = bindActionCreators(allAction, useDispatch())
     const psuPass = useSelector(state => state.psuPass)
@@ -21,6 +23,7 @@ const Navbar = () => {
         if (psuPass.id == "") {
             localStorage.removeItem('data')
             history.push('/')
+
         }
     }
 
