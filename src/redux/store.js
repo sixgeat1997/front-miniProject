@@ -61,7 +61,7 @@ export const allAction = {
     },
     addPost: (form) => async (dispatch) => {
 
-        const result = await axios.post(`https://api-stdloan.herokuapp.com/post/`, { ...form})
+        const result = await axios.post(`https://api-stdloan.herokuapp.com/post/`, { ...form })
         // const result = await axios.post(`http://localhost/post/`, { ...form })
         // console.log(form);
         dispatch({ type: "ADD_POST", post: { ...form } })
@@ -89,17 +89,17 @@ export const allAction = {
         // firestore.collection("std-loan").doc(user.id).set()
     },
 
-    showstd: (id) => async (dispatch) => {
-        dispatch({ type: 'CHANGE_LOADDING' })
-        axios
-            .get(`https://api-stdloan.herokuapp.com/${id}`)
-            // .get(`http://localhost/${id}`)
-            .then(res => {
-                dispatch({ type: 'CHANGE_POST', std: res.data })
-            })
-            .finally(() => {
-                dispatch({ type: 'CHANGE_LOADDING' })
-            })
+    showstd: (std) => async (dispatch) => {
+        dispatch({ type: 'CHANGE_POST', std: std })
+        // axios
+        //     .get(`https://api-stdloan.herokuapp.com/${id}`)
+        //     // .get(`http://localhost/${id}`)
+        //     .then(res => {
+        //         dispatch({ type: 'CHANGE_POST', std: res.data })
+        //     })
+        //     .finally(() => {
+        //         dispatch({ type: 'CHANGE_LOADDING' })
+        //     })
 
     },
 

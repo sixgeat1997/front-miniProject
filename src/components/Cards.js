@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import './Card.css';
-import { Modal, Button, Row, Col, Card,  message } from 'antd';
+import { Modal, Button, DatePicker, Drawer, Row, Col, Card, Input, Layout, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { allAction } from '../redux/store'
 import { bindActionCreators } from 'redux';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Form from 'antd/lib/form/Form';
+import Namelist from './Namelist';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -14,6 +16,8 @@ const Cards = (props) => {
     const Allaction = bindActionCreators(allAction, useDispatch())
     const postre = useSelector(state => state.postreduc)
     const getPost = useSelector(state => state.getPost)
+
+    let history = useHistory()
 
     const { confirm } = Modal;
     const [listStd, setListstd] = useState([])
@@ -135,89 +139,35 @@ const Cards = (props) => {
 
 
 
-        if ((+cookie[0] == 5935512038) || (+cookie[0] == 5935512030)) {
+        if ((+cookie[0] == 5935512038) || (+cookie[0] == 5935512030) || (+cookie[0] == 5935512044) || (+cookie[0] == 5935512089)) {
             return (
                 <>
                     {/* update */}
                     <div>
                         <Row>
-                            <Col md={8}>
-                                <Modal
-                                    title="update"
-                                    visible={state}
-                                    onOk={update}
-                                    onCancel={() => {
-                                        setState(false)
-                                    }}
-                                >
-
-                                    <Form>
-
-                                        <span>กิจกรรม : </span><input type="text" value={detail.activity} onChange={(e) => {
-                                            setDetail({ ...detail, activity: e.target.value })
-                                        }} /> <br />
-                                        <span>สถานที่ : </span><input type="text" value={detail.address} onChange={(e) => {
-                                            setDetail({ ...detail, address: e.target.value })
-                                        }} /> <br />
-                                        <span>วันที่ : </span><input type="text" value={detail.date} onChange={(e) => {
-                                            setDetail({ ...detail, date: e.target.value })
-                                        }} /> <br />
-                                        {/* <span>ผู้โพส : </span><input type="text" value={detail.name} onChange={(e) => {
-                                        setDetail({ ...detail, name: e.target.value })
-                                    }} /> <br /> */}
-                                        <span>ชั่วโมง : </span><input type="number" value={detail.hours} onChange={(e) => {
-                                            setDetail({ ...detail, hours: e.target.value })
-                                        }} /> <br />
-                                        <span>จำนวน : </span><input type="number" value={detail.people} onChange={(e) => {
-                                            setDetail({ ...detail, people: e.target.value })
-                                        }} /><br />
-                                        <span>คำอธิบาย : </span><input type="number" value={detail.des} onChange={(e) => {
-                                            setDetail({ ...detail, des: e.target.value })
-                                        }} />
-                                    </Form>
-                                </Modal>
-                            </Col>
                             <Col>
+                            </Col>
+                            <Col  >
                                 <div >
-
                                     <Button onClick={async () => {
                                         setState(true)
                                         setDetail(tmp)
 
                                     }}>แก้ไขข้อมูล</Button>
-
                                     {/* show */}
+                                    {/* <a href={() => history.push('/namelist')} target="_blank">Visit W3Schools.com!</a> */}
                                     <Button onClick={async () => {
-                                        Allaction.showstd(id)
-                                        setDrawer(true)
-
+                                        history.push('/namelist')
+                                        Allaction.showstd(tmp)
+                                        // setDrawer(true)
+                                        // console.log(getPost);
                                         // info(getPost)
                                     }}> แสดงรายชื่อ</Button>
-
-
-
-
                                     {/* Delete */}
                                     <Button onClick={showDeleteConfirm} danger>ลบกิจกรรม</Button>
-
-
-
-
-
-                                    {/* <Button onClick={() => {
-                                        regisAtt(cookie, tmp)
-                                        // console.log(detail);
-                                    }} >Regis</Button> */}
                                 </div>
-
                             </Col>
                         </Row>
-
-
-
-
-
-
                     </div>
                 </>
             )
@@ -258,10 +208,10 @@ const Cards = (props) => {
                                     <p ><h2 style={{ color: "red" }}>เหลือ : {props.people - props.std.length}</h2></p>
                                 </Col>
                             </Row>
-                            {/* <Row>
+                            <Row>
                                 <p>คำอธิบาย : {props.des}</p>
 
-                            </Row> */}
+                            </Row>
                             <Row>
                                 <p >ผู้โพส : {props.name}</p>
                             </Row>
@@ -275,8 +225,8 @@ const Cards = (props) => {
 
 
                     </Card>
-                
-                    {/* 
+           
+{/* 
                     <ol>{props.std.map(std => {
                         return <li>{std.id} {std.name} </li>
                     })}</ol> */}
@@ -292,7 +242,40 @@ const Cards = (props) => {
                     <p>Some contents...</p>
                     <p>Some contents...</p>
                 </Drawer> */}
+                <Modal
+                    title="update"
+                    visible={state}
+                    onOk={update}
+                    onCancel={() => {
+                        setState(false)
+                    }}
+                >
 
+                    <Form>
+
+                        <span>กิจกรรม : </span><input type="text" value={detail.activity} onChange={(e) => {
+                            setDetail({ ...detail, activity: e.target.value })
+                        }} /> <br />
+                        <span>สถานที่ : </span><input type="text" value={detail.address} onChange={(e) => {
+                            setDetail({ ...detail, address: e.target.value })
+                        }} /> <br />
+                        <span>วันที่ : </span><input type="text" value={detail.date} onChange={(e) => {
+                            setDetail({ ...detail, date: e.target.value })
+                        }} /> <br />
+                        {/* <span>ผู้โพส : </span><input type="text" value={detail.name} onChange={(e) => {
+                                        setDetail({ ...detail, name: e.target.value })
+                                    }} /> <br /> */}
+                        <span>ชั่วโมง : </span><input type="number" value={detail.hours} onChange={(e) => {
+                            setDetail({ ...detail, hours: e.target.value })
+                        }} /> <br />
+                        <span>จำนวน : </span><input type="number" value={detail.people} onChange={(e) => {
+                            setDetail({ ...detail, people: e.target.value })
+                        }} /><br />
+                        <span>คำอธิบาย : </span><input value={detail.des} onChange={(e) => {
+                            setDetail({ ...detail, des: e.target.value })
+                        }} />
+                    </Form>
+                </Modal>
                 <div className=''>
 
 
