@@ -42,7 +42,7 @@ const PostCard = () => {
 
                     {post()}
 
-                    
+
                     <Divider orientation="left">กิจกรรมทั้งหมด</Divider>
 
                     <div className="container">

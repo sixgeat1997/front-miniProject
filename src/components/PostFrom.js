@@ -75,12 +75,12 @@ const PostFrom = () => {
                             >
                                 <Input size="small" type="number" onChange={(e) => Allaction.change_people(e.target.value)} placeholder="จำนวน" />
                             </Form.Item>
-                            {/* <Form.Item
+                            <Form.Item
                                 label="คำอธิบาย"
                             >
                                 <TextArea rows={4} onChange={(e) => Allaction.change_des(e.target.value)} />
 
-                            </Form.Item> */}
+                            </Form.Item>
 
                         </Form>
                         <Button onClick={addPost} >เพิ่มกิจกรรม</Button>

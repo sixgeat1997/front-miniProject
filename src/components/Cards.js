@@ -225,8 +225,8 @@ const Cards = (props) => {
 
 
                     </Card>
-           
-{/* 
+
+                    {/* 
                     <ol>{props.std.map(std => {
                         return <li>{std.id} {std.name} </li>
                     })}</ol> */}

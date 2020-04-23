@@ -39,9 +39,8 @@ const loadding = false
 export const allAction = {
 
     plogin: (login) => async (dispatch) => {
-        // const result = await axios.post(`http://localhost/`, { username: "5935512038", password: "chayanon26+" });
         const result = await axios.post(`https://api-stdloan.herokuapp.com/`, { ...login });
-        // const result = await axios.post(`http://localhost/`, { ...login });
+        // const result = await axios.post(`http://localhost:8080/`, { ...login });
         console.log(result.data.GetStudentDetailsResult);
         const [id, name, surname] = [...result.data.GetStudentDetailsResult.string]
         dispatch({ type: 'LOGIN', id: id, name: name, surname: surname })
@@ -54,7 +53,7 @@ export const allAction = {
 
     getPost: () => async (dispatch) => {
         const response = await axios.get(`https://api-stdloan.herokuapp.com/`)
-        // const response = await axios.get(`http://localhost/`)
+        // const response = await axios.get(`http://localhost:8080/`)
         const responseBody = await response.data;
         console.log('response: ', responseBody)
         dispatch({ type: "GET_POST", posts: responseBody });
@@ -62,8 +61,8 @@ export const allAction = {
     addPost: (form) => async (dispatch) => {
 
         const result = await axios.post(`https://api-stdloan.herokuapp.com/post/`, { ...form })
-        // const result = await axios.post(`http://localhost/post/`, { ...form })
-        // console.log(form);
+        // const result = await axios.post(`http://localhost:8080/post/`, { ...form })
+        console.log(form);
         dispatch({ type: "ADD_POST", post: { ...form } })
 
 
@@ -73,13 +72,13 @@ export const allAction = {
     },
     deletePost: (index) => async (dispatch) => {
         const result = await axios.delete(`https://api-stdloan.herokuapp.com/delete/${index.id}`, index)
-        // const result = await axios.delete(`http://localhost/delete/${index.id}`, index)
+        // const result = await axios.delete(`http://localhost:8080/delete/${index.id}`, index)
         dispatch({ type: "DELETE_POST", id: index.id })
     },
 
     updatePost: (post) => async (dispatch) => {
         await axios.put(`https://api-stdloan.herokuapp.com/update/${post.id}`, post)
-        // await axios.put(`http://localhost/update/${post.id}`, post)
+        // await axios.put(`http://localhost:8080/update/${post.id}`, post)
         dispatch({ type: 'UPDATE_POST', post: post, id: post.id })
     },
 

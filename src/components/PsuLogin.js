@@ -46,6 +46,7 @@ const PsuLogin = () => {
     const sentPsu = () => {
         AllAction.plogin(psu)
         alerts()
+        
     }
 
 
