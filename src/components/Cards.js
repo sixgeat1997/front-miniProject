@@ -139,7 +139,7 @@ const Cards = (props) => {
 
 
 
-        if ((+cookie[0] == 5935512038) || (+cookie[0] == 5935512030) || (+cookie[0] == 5935512044) || (+cookie[0] == 5935512089)) {
+        if ((+cookie[0] == 5935512038)) {
             return (
                 <>
                     {/* update */}

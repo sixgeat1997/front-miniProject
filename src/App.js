@@ -14,7 +14,6 @@ function App() {
       <Route exact={true} path={'/'} component={Psulogin} />
       <Route exact={true} path={'/main'} component={Main} />
       <Route exact={true} path={'/namelist/'} component={Namelist} />
-
     </div>
   );
 }
